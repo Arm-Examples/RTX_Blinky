@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Open-CMSIS-Pack/devtools/schemas/projmgr/0.9.4/tools/projmgr/schemas/cproject.schema.json
+
+project:
+
+  components:
+    - component: ARM::CMSIS:RTOS2:Keil RTX5&Source
+    - component: ARM::CMSIS:CORE
+    - component: ARM::CMSIS Driver:USART
+    - component: ARM::Device:Startup&Baremetal
+    - component: ARM::Device:Definition
+    - component: ARM::Native Driver:UART
+    - component: Keil::Compiler&ARM Compiler:I/O:STDERR&User
+    - component: Keil::Compiler&ARM Compiler:I/O:STDIN&User
+    - component: Keil::Compiler&ARM Compiler:I/O:STDOUT&User
+
+  groups:
+    - group: Documentation
+      files: 
+        - file: ./README.md
+    - group: App
+      files:
+        - file: ./main.c
+        - file: ./main.h
+        - file: ./Blinky.c
+    - group: Board
+      files:
+        - file: ./retarget_stdio.c

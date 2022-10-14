@@ -1,0 +1,43 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Open-CMSIS-Pack/devtools/schemas/projmgr/0.9.4/tools/projmgr/schemas/csolution.schema.json
+
+solution:
+  packs:
+    - pack: ARM::CMSIS
+    - pack: ARM::V2M_MPS3_SSE_300_BSP@1.2.0
+    - pack: Keil::ARM_Compiler
+
+  target-types:
+    - type: AVH
+      device: ARM::SSE-300-MPS3
+
+  build-types:
+    - type: Debug
+      compiler: AC6
+      misc:
+        - C:
+          - -O1
+          - -g
+          - -Wno-macro-redefined
+          - -Wno-pragma-pack
+          - -Wno-parentheses-equality
+          - -std=c99
+        - ASM:
+          - -masm=auto
+        - Link:
+          - --entry=Reset_Handler
+    - type: Release
+      compiler: AC6
+      misc:
+        - C:
+          - -O3
+          - -Wno-macro-redefined
+          - -Wno-pragma-pack
+          - -Wno-parentheses-equality
+          - -std=c99
+        - ASM:
+          - -masm=auto
+        - Link:
+          - --entry=Reset_Handler
+
+  projects:
+    - project: ./Blinky.cproject.yml

@@ -1,0 +1,28 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "Run VHT",
+			"command": "VHT_Corstone_SSE-300_Ethos-U55.exe",
+			"args": [
+				"-f",
+				"Board\\AVH_MPS3_Corstone-300\\fvp_config.txt",
+				"${command:cmsis-csolution.getBinaryFile}",
+				"-Q",
+				"10"
+			],
+			"problemMatcher": [],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"type": "cmsis-csolution.build",
+			"project": "${command:cmsis-csolution.getCprjPath}",
+			"problemMatcher": [],
+			"label": "cmsis-csolution.build: Build"
+		}
+	]
+}
