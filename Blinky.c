@@ -1,5 +1,5 @@
 /*---------------------------------------------------------------------------
- * Copyright (c) 2020 Arm Limited (or its affiliates). All rights reserved.
+ * Copyright (c) 2022 Arm Limited (or its affiliates). All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -25,34 +25,22 @@
 #include "cmsis_os2.h"
 
 static osThreadId_t tid_thrLED;         // Thread id of thread: LED
+volatile uint32_t g_ledSet = 0;         // Variable to store virtual LED value
 
 /*---------------------------------------------------------------------------
   thrLED: blink LED
  *---------------------------------------------------------------------------*/
 __NO_RETURN static void thrLED (void *arg) {
-//  uint32_t active_flag = 0U;
 
   (void)arg;
 
   for (;;) {
-//    if (osThreadFlagsWait(1U, osFlagsWaitAny, 0U) == 1U) {
-//      active_flag ^= 1U;
-//    }
-
-//    if (active_flag == 1U) {
-////      vioSetSignal(vioLED0, vioLEDoff);         // Switch LED0 off
-////      vioSetSignal(vioLED1, vioLEDon);          // Switch LED1 on
-//      osDelay(100U);                            // Delay 100 ms
-////      vioSetSignal(vioLED0, vioLEDon);          // Switch LED0 on
-////      vioSetSignal(vioLED1, vioLEDoff);         // Switch LED1 off
-//      osDelay(100U);                            // Delay 100 ms
-//    }
-//    else {
-			printf("LED On\r\n");
-      osDelay(500U);                            // Delay 500 ms
+      g_ledSet = 0;
 			printf("LED Off\r\n");
       osDelay(500U);                            // Delay 500 ms
-//    }
+      g_ledSet = 1;
+			printf("LED On\r\n");
+      osDelay(500U);                            // Delay 500 ms
   }
 }
 
