@@ -6,13 +6,6 @@ project:
     - type: elf
       file: $BuildType$+$TargetType$.axf
 
-  packs:
-    - pack: ARM::CMSIS
-    - pack: Keil::ARM_Compiler
-
-    # packs for AVH_MPS3_Corstone-300
-    - pack: ARM::V2M_MPS3_SSE_300_BSP@1.2.0
-
   processor:
     trustzone: secure
 

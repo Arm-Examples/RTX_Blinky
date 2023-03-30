@@ -27,7 +27,11 @@
 /out
 /tmp
 *.cbuild-idx.yml
+/app/Board/AVH_MPS3_Corstone-300/tmp/*
+/app/Board/AVH_MPS3_Corstone-300/out/*
 /app/Board/AVH_MPS3_Corstone-300/*.cbuild.yml
 /app/Board/AVH_MPS3_Corstone-300/*.cprj
 /app/Board/FRDM-K32L3A6/*.cbuild.yml
 /app/Board/FRDM-K32L3A6/*.cprj
+/app/Board/FRDM-K32L3A6/tmp/*
+/app/Board/FRDM-K32L3A6/out/*
