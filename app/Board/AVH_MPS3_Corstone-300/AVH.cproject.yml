@@ -1,0 +1,54 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Open-CMSIS-Pack/devtools/schemas/projmgr/1.5.0/tools/projmgr/schemas/cproject.schema.json
+
+project:
+
+  output:
+    - type: elf
+      file: $BuildType$+$TargetType$.axf
+
+  packs:
+    - pack: ARM::CMSIS
+    - pack: Keil::ARM_Compiler
+
+    # packs for AVH_MPS3_Corstone-300
+    - pack: ARM::V2M_MPS3_SSE_300_BSP@1.2.0
+
+  processor:
+    trustzone: secure
+
+  add-paths:
+    - .
+
+  components:
+    - component: ARM::Device:Definition
+    - component: ARM::Device:Startup&Baremetal
+
+    - component: ARM::Native Driver:IO
+    - component: ARM::Native Driver:UART
+
+    - component: ARM::CMSIS:RTOS2:Keil RTX5&Source
+    - component: ARM::CMSIS:CORE
+
+    - component: ARM::CMSIS Driver:USART
+    - component: ARM::CMSIS Driver:VIO:Custom
+
+    - component: Keil::Compiler&ARM Compiler:Event Recorder&DAP
+    - component: Keil::Compiler&ARM Compiler:I/O:STDERR&User
+    - component: Keil::Compiler&ARM Compiler:I/O:STDOUT&User
+    - component: Keil::Compiler&ARM Compiler:I/O:STDIN&User
+
+  groups:
+    - group: Documentation
+      files: 
+        - file: ../../../README.md
+    - group: App
+      files:
+        - file: ./main.h
+        - file: ./main.c
+        - file: ../../Blinky.c
+    - group: Board
+      files:
+        - file: ./retarget_stdio.c
+        - file: ./Driver/vio_V2M-MPS3-SSE-300.c
+        - file: ./RTE/Device/SSE-300-MPS3/fvp_sse300_mps3_s.sct
+        - file: ./vht_config.txt

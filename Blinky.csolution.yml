@@ -1,43 +1,29 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/Open-CMSIS-Pack/devtools/schemas/projmgr/0.9.4/tools/projmgr/schemas/csolution.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Open-CMSIS-Pack/devtools/schemas/projmgr/1.5.0/tools/projmgr/schemas/csolution.schema.json
 
 solution:
-  packs:
-    - pack: ARM::CMSIS
-    - pack: ARM::V2M_MPS3_SSE_300_BSP@1.2.0
-    - pack: Keil::ARM_Compiler
 
   target-types:
     - type: AVH
       device: ARM::SSE-300-MPS3
 
+    - type: FRDM-K32L3A6
+      board: NXP::FRDM-K32L3A6
+      device: NXP::K32L3A60VPJ1A:cm4
+
   build-types:
     - type: Debug
-      compiler: AC6
-      misc:
-        - C:
-          - -O1
-          - -g
-          - -Wno-macro-redefined
-          - -Wno-pragma-pack
-          - -Wno-parentheses-equality
-          - -std=c99
-        - ASM:
-          - -masm=auto
-        - Link:
-          - --entry=Reset_Handler
+      optimize: none
+      debug: on
+
     - type: Release
-      compiler: AC6
-      misc:
-        - C:
-          - -O3
-          - -Wno-macro-redefined
-          - -Wno-pragma-pack
-          - -Wno-parentheses-equality
-          - -std=c99
-        - ASM:
-          - -masm=auto
-        - Link:
-          - --entry=Reset_Handler
+      optimize: balanced
+      debug: off
 
   projects:
-    - project: ./Blinky.cproject.yml
+    - project: ./app/Board/AVH_MPS3_Corstone-300/AVH.cproject.yml
+      for-context:
+        - +AVH
+
+    - project: ./app/Board/FRDM-K32L3A6/FRDM-K32L3A6.cproject.yml
+      for-context:
+        - +FRDM-K32L3A6

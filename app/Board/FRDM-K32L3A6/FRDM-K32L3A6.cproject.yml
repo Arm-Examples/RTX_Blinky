@@ -1,0 +1,89 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Open-CMSIS-Pack/devtools/schemas/projmgr/1.5.0/tools/projmgr/schemas/cproject.schema.json
+
+project:
+
+  output:
+    - type: elf
+      file: $BuildType$+$TargetType$.axf
+
+  packs:
+    - pack: ARM::CMSIS
+    - pack: Keil::ARM_Compiler
+
+    # packs for FRDM-K32L3A6
+    - pack: NXP::K32L3A60_DFP@13.0.0
+    - pack: NXP::FRDM-K32L3A6_BSP@13.0.0
+
+  add-paths:
+    - .
+
+  defines:
+    - SDK_DEBUGCONSOLE=1
+
+  misc:
+    - Link:
+      - '--diag_suppress 6314'
+
+  components:
+    - component: Device:Startup
+
+    - component: NXP::Device:CMSIS:K32L3A60_header
+    - component: NXP::Device:CMSIS:K32L3A60_system
+
+    - component: NXP::Device:SDK Drivers:clock
+    - component: NXP::Device:SDK Drivers:common
+    - component: NXP::Device:SDK Drivers:dmamux
+    - component: NXP::Device:SDK Drivers:edma
+    - component: NXP::Device:SDK Drivers:fxos8700cq
+    - component: NXP::Device:SDK Drivers:gpio
+    - component: NXP::Device:SDK Drivers:i2c
+    - component: NXP::Device:SDK Drivers:lists
+    - component: NXP::Device:SDK Drivers:lpspi
+    - component: NXP::Device:SDK Drivers:lpuart
+    - component: NXP::Device:SDK Drivers:lpuart_adapter
+    - component: NXP::Device:SDK Drivers:msmc
+    - component: NXP::Device:SDK Drivers:port
+
+    - component: NXP::Device:SDK Project Template:RTE_Device
+
+    - component: NXP::Device:SDK Utilities:assert
+    - component: NXP::Device:SDK Utilities:debug_console
+
+    - component: NXP::Device:SDK Utilities:serial_manager
+    - component: NXP::Device:SDK Utilities:serial_manager_uart
+
+    - component: NXP::Board Support:SDK Project Template:project_template&frdmk32l3a6
+
+    - component: ARM::CMSIS:RTOS2:Keil RTX5&Source
+    - component: ARM::CMSIS:CORE
+
+    - component: ARM::CMSIS Driver:SPI:Custom
+    - component: NXP::CMSIS Driver:USART:lpuart_cmsis
+    - component: ARM::CMSIS Driver:VIO:Custom
+
+    - component: Keil::Compiler&ARM Compiler:Event Recorder&DAP
+    - component: Keil::Compiler&ARM Compiler:I/O:STDERR&User
+    - component: Keil::Compiler&ARM Compiler:I/O:STDOUT&User
+    - component: Keil::Compiler&ARM Compiler:I/O:STDIN&User
+
+  groups:
+    - group: Documentation
+      files: 
+        - file: ../../../README.md
+    - group: App
+      files:
+        - file: ../../Blinky.c
+        - file: ./main.h
+        - file: ./main.c
+    - group: Board
+      files:
+        - file: ./arduino.h
+        - file: ./arduino.c
+        - file: ./retarget_stdio.c
+        - file: ./fsl_lpspi_cmsis.h
+        - file: ./fsl_lpspi_cmsis.c
+        - file: ./vio_FRDM-K32L3A6.c
+        - file: ./RTE/Device/K32L3A60VPJ1A_cm4/K32L3A60xxx_cm4_flash.scf
+    - group: MCUXpresso
+      files:
+        - file: ./FRDM-K32L3A6.mex

@@ -3,7 +3,6 @@
 
 # Object files
 *.o
-*.ko
 *.obj
 *.elf
 
@@ -12,46 +11,23 @@
 *.map
 *.exp
 
-# Precompiled Headers
-*.gch
-*.pch
-
 # Libraries
 *.lib
 *.a
 *.la
 *.lo
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
 # Executables
-*.exe
 *.out
-*.app
-*.i*86
-*.x86_64
+*.axf
 *.hex
 
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
-
-# csolution foolders
+# Generated output
+.clangd
 /out
 /tmp
-*.cprj
+*.cbuild-idx.yml
+/app/Board/AVH_MPS3_Corstone-300/*.cbuild.yml
+/app/Board/AVH_MPS3_Corstone-300/*.cprj
+/app/Board/FRDM-K32L3A6/*.cbuild.yml
+/app/Board/FRDM-K32L3A6/*.cprj
