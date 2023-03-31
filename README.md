@@ -1,5 +1,7 @@
 # Blinky Project for Multiple Targets
 
+<p align="center"><img src="./Blinky.png"/></p>
+
 The **Blinky** project can be easily used to verify the basic tool setup. It is available for two different targets:
 
 - Arm Cortstone-300 (Cortex-M55)
