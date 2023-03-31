@@ -26,7 +26,7 @@
 The table below lists the physical I/O mapping of this CMSIS-Driver VIO implementation.
 Virtual Resource  | Variable       | Physical Resource on V2M-MPS3-SSE-300          |
 :-----------------|:---------------|:-----------------------------------------------|
-vioBUTTON0        | vioSignalIn.0  | User Button PB1                                |
+vioBUTTON0        | vioSignalIn.0  | User Button PB0                                |
 vioBUTTON1        | vioSignalIn.1  | User Button PB1                                |
 vioLED0           | vioSignalOut.0 | User LED UL0                                   |
 vioLED1           | vioSignalOut.1 | User LED UL1                                   |

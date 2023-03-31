@@ -11,7 +11,14 @@ is supported by various real-time operating systems, for example [Keil RTX5](htt
 
 ## Operation
 
- - The application prints alternately "LED On" and "LED Off" to the terminal/serial output.
+- In the beginning, `vioLED0` blinks in 1 sec interval.
+- Pressing `vioBUTTON0` changes the blink frequency and start/stops `vioLED1`.
+- `printf` messages are shown on the serial console.
+
+The board hardware mapping of `vioLED0`, `vioLED1`, and `vioBUTTON0` depends on the 
+configuration of the [CMSIS-Driver VIO](https://arm-software.github.io/CMSIS_5/Driver/html/group__vio__interface__gr.html).
+
+The output of the serial console can be observed in a Terminal window on VS Code.
 
 ## RTOS: Keil RTX5 Real-Time Operating System
 
@@ -40,7 +47,7 @@ The heap/stack setup and the CMSIS-Driver assignment is in configuration files o
 | Device                  | SSE-3000-MPS3
 | Clock                   | 32 MHz
 | Heap                    | 64 kB (configured in region_limit.h file)
-| Stack (MSP)             | 1 kB (configured in region_limit.h file)
+| Stack (MSP)             |  1 kB (configured in region_limit.h file)
 
 **STDIO** is routed to USART0
 
@@ -49,6 +56,14 @@ The heap/stack setup and the CMSIS-Driver assignment is in configuration files o
 | CMSIS-Driver | Peripheral
 |:-------------|:----------
 | USART0       | USART0
+
+| CMSIS-Driver VIO  | Physical Resource on V2M-MPS3-SSE-300
+|:------------------|:-------------------------------------
+| vioBUTTON0        | User Button PB0
+| vioLED0           | User LED UL0
+| vioLED1           | User LED UL1
+
+*Note:* On AVH, the LEDs and the button are simulated in a graphical window.
 
 ## Board: NXP FRDM-K32L3A6
 
@@ -111,23 +126,16 @@ The example project can be re-configured to work on custom hardware. Refer to ["
 | LPUART1             | 4
 | LPSPI0              | 4
 
-**STDIO** is routed to debug console through Virtual COM port (DAP-Link, peripheral = LPUART0, baudrate = 115200)
+**STDIO** is routed to a debug console through Virtual COM port (DAP-Link, peripheral = LPUART0, baudrate = 115200)
 
 ### CMSIS-Driver mapping
 
 | CMSIS-Driver | Peripheral
 |:-------------|:----------
 | USART1       | LPUART1
-| SPI0         | LPSPI0
 
 | CMSIS-Driver VIO  | Physical board hardware
 |:------------------|:------------------------------
 | vioBUTTON0        | User Button SW2
-| vioBUTTON1        | User Button SW3
-| vioBUTTON2        | User Button SW4
-| vioBUTTON3        | User Button SW5
 | vioLED0           | User LED RED
 | vioLED1           | User LED GREEN
-| vioLED2           | User LED BLUE
-| vioMotionAccelero | MEMS accelerometer(FXOS8700CQ)
-| vioMotionMagneto  | MEMS magnetometer (FXOS8700CQ)
