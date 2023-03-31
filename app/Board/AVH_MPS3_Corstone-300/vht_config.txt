@@ -1,7 +1,7 @@
 # Parameters:
 # instance.parameter=value       #(type, mode) default = 'def value' : description : [min..max]
 #------------------------------------------------------------------------------
-mps3_board.visualisation.disable-visualisation=1      # (bool  , init-time) default = '0'      : Enable/disable visualisation
+mps3_board.visualisation.disable-visualisation=0      # (bool  , init-time) default = '0'      : Enable/disable visualisation
 cpu0.semihosting-Thumb_SVC=0xAB                       # (int   , init-time) default = '0xab'   : T32 SVC number for semihosting
 cpu0.semihosting-cmd_line=                            # (string, init-time) default = ''       : Command line available to semihosting SVC calls
 cpu0.semihosting-cwd=                                 # (string, init-time) default = ''       : Base directory for semihosting file access.
