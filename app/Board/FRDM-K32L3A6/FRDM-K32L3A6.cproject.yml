@@ -64,7 +64,7 @@ project:
         - file: ../../../README.md
     - group: App
       files:
-        - file: ../../Blinky.c
+        - file: ./Blinky.c
         - file: ./main.h
         - file: ./main.c
     - group: Board

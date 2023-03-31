@@ -38,7 +38,7 @@ project:
       files:
         - file: ./main.h
         - file: ./main.c
-        - file: ../../Blinky.c
+        - file: ../FRDM-K32L3A6/Blinky.c
     - group: Board
       files:
         - file: ./retarget_stdio.c
