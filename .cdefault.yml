@@ -23,6 +23,7 @@ default:
       Link:
         - --entry=Reset_Handler
         - --info summarysizes
+        - --summary_stderr
         - --diag_suppress 6314
         - --diag_suppress 6848
 
