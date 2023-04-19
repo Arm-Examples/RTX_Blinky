@@ -25,6 +25,7 @@
 #include "cmsis_os2.h"
 #include "cmsis_vio.h"
 
+// test comment
 static   osThreadId_t tid_thrLED;       // Thread id of thread: LED
 static   osThreadId_t tid_thrButton;    // Thread id of thread: Button
 volatile     uint32_t g_ledSet = 0;     // Variable to store virtual LED value:
