@@ -5,12 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Dbg K32L3A6",
+            "name": "Embedded Debug - FRDM-K32L3A6",
             "type": "embedded-debug",
             "request": "launch",
             "serialNumber": "${command:device-manager.getSerialNumber}",
             "program": "${command:cmsis-csolution.getBinaryFile}",
-            "cmsisPack": "${env:CMSIS_PACK_ROOT}/.Download/NXP.K32L3A60_DFP.13.0.0.pack",
+            "cmsisPack": "${command:device-manager.getDevicePack}",
             "debugFrom": "main"
         }
     ]

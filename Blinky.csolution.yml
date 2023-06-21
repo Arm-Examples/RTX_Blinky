@@ -3,6 +3,7 @@
 solution:
   created-for: cmsis-toolbox@2.0.0
   description: Simple blinky example
+  compiler: AC6
 
   misc:
     - for-compiler: AC6
@@ -39,6 +40,7 @@ solution:
 
   target-types:
     - type: AVH
+      board: V2M-MPS3-SSE-300-FVP
       device: ARM::SSE-300-MPS3
 
     - type: FRDM-K32L3A6

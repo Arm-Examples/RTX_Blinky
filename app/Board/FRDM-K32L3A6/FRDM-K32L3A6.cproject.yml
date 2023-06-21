@@ -1,20 +1,38 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/Open-CMSIS-Pack/devtools/schemas/projmgr/1.5.0/tools/projmgr/schemas/cproject.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Open-CMSIS-Pack/devtools/schemas/projmgr/2.0.0-dev2/tools/projmgr/schemas/cproject.schema.json
 
 project:
 
-  output:
-    - type: elf
-      file: $BuildType$+$TargetType$.axf
+#  add-path:
+#    - .
 
-  add-paths:
-    - .
-
-  defines:
-    - SDK_DEBUGCONSOLE=1
+  define:
+    - SDK_DEBUGCONSOLE: 1
 
   misc:
     - Link:
       - '--diag_suppress 6314'
+
+  groups:
+    - group: Documentation
+      files: 
+        - file: ../../../README.md
+    - group: App
+      files:
+        - file: ./Blinky.c
+        - file: ./main.h
+        - file: ./main.c
+    - group: Board
+      files:
+        - file: ./arduino.h
+        - file: ./arduino.c
+        - file: ./retarget_stdio.c
+        - file: ./fsl_lpspi_cmsis.h
+        - file: ./fsl_lpspi_cmsis.c
+        - file: ./vio_FRDM-K32L3A6.c
+        - file: ./RTE/Device/K32L3A60VPJ1A_cm4/K32L3A60xxx_cm4_flash.scf
+    - group: MCUXpresso
+      files:
+        - file: ./FRDM-K32L3A6.mex
 
   components:
     - component: Device:Startup
@@ -58,24 +76,3 @@ project:
     - component: Keil::Compiler&ARM Compiler:I/O:STDOUT&User
     - component: Keil::Compiler&ARM Compiler:I/O:STDIN&User
 
-  groups:
-    - group: Documentation
-      files: 
-        - file: ../../../README.md
-    - group: App
-      files:
-        - file: ./Blinky.c
-        - file: ./main.h
-        - file: ./main.c
-    - group: Board
-      files:
-        - file: ./arduino.h
-        - file: ./arduino.c
-        - file: ./retarget_stdio.c
-        - file: ./fsl_lpspi_cmsis.h
-        - file: ./fsl_lpspi_cmsis.c
-        - file: ./vio_FRDM-K32L3A6.c
-        - file: ./RTE/Device/K32L3A60VPJ1A_cm4/K32L3A60xxx_cm4_flash.scf
-    - group: MCUXpresso
-      files:
-        - file: ./FRDM-K32L3A6.mex

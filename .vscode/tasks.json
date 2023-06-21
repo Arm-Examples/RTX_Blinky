@@ -22,7 +22,7 @@
 			"type": "embedded-debug.flash",
 			"serialNumber": "${command:device-manager.getSerialNumber}",
 			"program": "${command:cmsis-csolution.getBinaryFile}",
-			"cmsisPack": "${env:CMSIS_PACK_ROOT}/.Download/NXP.K32L3A60_DFP.13.0.0.pack",
+			"cmsisPack": "${command:device-manager.getDevicePack}",
 			"problemMatcher": [],
 			"label": "Flash K32L3A6",
 			"group": "build"
