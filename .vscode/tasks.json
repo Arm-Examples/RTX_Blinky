@@ -28,10 +28,17 @@
 			"group": "build"
 		},
 		{
+			"label": "CMSIS Build",
 			"type": "cmsis-csolution.build",
-			"project": "${command:cmsis-csolution.getCprjPath}",
+			"solution": "${command:cmsis-csolution.getSolutionPath}",
+			"project": "${command:cmsis-csolution.getProjectPath}",
+			"buildType": "${command:cmsis-csolution.getBuildType}",
+			"targetType": "${command:cmsis-csolution.getTargetType}",
 			"problemMatcher": [],
-			"label": "cmsis-csolution.build: Build"
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
 		}
 	]
 }
