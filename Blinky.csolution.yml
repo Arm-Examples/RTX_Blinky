@@ -2,8 +2,7 @@
 
 solution:
   created-for: cmsis-toolbox@2.0.0
-  cdefault:
-  compiler: AC6
+  description: Simple blinky example
 
   misc:
     - for-compiler: AC6
@@ -37,7 +36,6 @@ solution:
     - pack: NXP::FRDM-K32L3A6_BSP@13.0.0
       for-context:
         - +FRDM-K32L3A6
-
 
   target-types:
     - type: AVH
