@@ -4,7 +4,24 @@ solution:
   created-for: cmsis-toolbox@2.0.0
   cdefault:
   compiler: AC6
-  
+
+  misc:
+    - for-compiler: AC6
+      C-CPP:
+        - -Wno-macro-redefined
+        - -Wno-pragma-pack
+        - -Wno-parentheses-equality
+      C:
+        - -std=gnu11
+      ASM:
+        - -masm=auto
+      Link:
+        - --entry=Reset_Handler
+        - --info summarysizes
+        - --summary_stderr
+        - --diag_suppress 6314
+        - --diag_suppress 6848
+
   packs:
     - pack: ARM::CMSIS
     - pack: Keil::ARM_Compiler
