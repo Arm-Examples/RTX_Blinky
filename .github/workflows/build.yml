@@ -17,8 +17,30 @@ jobs:
       - name: Cache packs
         uses: actions/cache@v3
         with:
-          key: packs
+          key: packs-${{ github.run_id }}
+          restore-keys: packs-
           path: /home/runner/.cache/arm/packs
 
+      # - name: Cache vcpkg
+      #   uses: actions/cache@v3
+      #   with:
+      #     key: vcpkg-${{ github.run_id }}
+      #     restore-keys: vcpkg-
+      #     path: /home/runner/.vcpkg
+
       - run: |
-          cbuild Blinky.csolution.yml --packs --update-rte --configuration .debug+avh
+          # Bootstrap and activate vcpkg
+          . <(curl https://aka.ms/vcpkg-init.sh -L)
+          vcpkg x-update-registry --all
+          vcpkg activate
+          
+          # Activate tool license
+          armlm activate -product KEMDK-COM0 -server https://mdk-preview.keil.arm.com
+
+          # Run build
+          cbuild Blinky.csolution.yml --packs --update-rte --context .Debug+AVH
+
+      - name: Deactivate tool license
+        if: always()
+        run: |
+            armlm deactivate -product KEMDK-COM0
