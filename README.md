@@ -13,6 +13,32 @@ is supported by various real-time operating systems, for example [Keil RTX5](htt
 
 ## Operation
 
+### Flashing the FRDM-K32L3A6 taarget
+
+You have two options to flash the hardware target with Keil Studio:
+
+1. Use the embedded debugger: when pressing the Run or Debug button, the embedded debugger is called to flash the application onto the target.
+1. Use the Arm Debugger: in the `tasks.json` file, there is an entry for the new Arm Debugger. If you want to flash the target with this debugger, go to "Terminal --> Run Task..." and select "Flash K32 with Arm Debugger".
+
+In both cases, use the "cm4" target in the selection pop-up:
+
+![Select processor](./select_processor.png)
+
+### Debugging on the FRDM-K32L3A6 taarget
+
+You have two options to debug the hardware target with Keil Studio:
+
+1. Use the embedded debugger: when pressing the Debug button, the embedded debugger is called to debug the application onto the target.
+1. Use the Arm Debugger: in the `launch.json` file, there is an entry for the new Arm Debugger. If you want to debug the target with this debugger, go to the debug view (1), select the launch configuration in the drop-down at the top ("Arm Debug")(2), and press the debug button(3):
+   
+   ![Use Arm Debug](./Arm_Debug.png)
+
+In both cases, use the "cm4" target in the selection pop-up:
+
+![Select processor](./select_processor.png)
+
+### Running the application
+
 - In the beginning, `vioLED0` blinks in 1 sec interval.
 - Pressing `vioBUTTON0` changes the blink frequency and start/stops `vioLED1`.
 - `printf` messages are shown on the serial console.

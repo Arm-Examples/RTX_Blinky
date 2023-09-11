@@ -8,7 +8,7 @@
 			"args": [
 				"-f",
 				"app\\Board\\AVH_MPS3_Corstone-300\\vht_config.txt",
- 				"${command:cmsis-csolution.getBinaryFile}",
+				"${command:cmsis-csolution.getBinaryFile}",
 				"-Q",
 				"10"
 			],
@@ -39,6 +39,14 @@
 				"kind": "build",
 				"isDefault": true
 			}
+		},
+		{
+			"type": "embedded-debug.arm-flash",
+			"serialNumber": "${command:device-manager.getSerialNumber}",
+			"program": "${command:embedded-debug.getApplicationFile}",
+			"cmsisPack": "${command:device-manager.getDevicePack}",
+			"problemMatcher": [],
+			"label": "Flash K32 with Arm Debugger"
 		}
 	]
 }

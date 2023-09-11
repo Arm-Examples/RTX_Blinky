@@ -5,6 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Arm Debug",
+            "type": "arm-debug",
+            "request": "launch",
+            "serialNumber": "${command:device-manager.getSerialNumber}",
+            "program": "${command:embedded-debug.getApplicationFile}",
+            "cmsisPack": "${command:device-manager.getDevicePack}",
+        },
+        {
             "name": "Embedded Debug - FRDM-K32L3A6",
             "type": "embedded-debug",
             "request": "launch",
