@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding= "UTF-8" ?>
-<configuration name="K32L3A60xxx" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.9 http://mcuxpresso.nxp.com/XSD/mex_configuration_1.9.xsd" uuid="7dd6c4d8-33f9-4693-ab6d-3d36c8e571a4" version="1.9" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<configuration name="K32L3A60xxx" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_14 http://mcuxpresso.nxp.com/XSD/mex_configuration_14.xsd" uuid="7dd6c4d8-33f9-4693-ab6d-3d36c8e571a4" version="14" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_14" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <common>
       <processor>K32L3A60xxx</processor>
       <package>K32L3A60VPJ1A</package>
@@ -15,15 +15,17 @@
       <validate_boot_init_only>true</validate_boot_init_only>
       <generate_extended_information>false</generate_extended_information>
       <generate_code_modified_registers_only>false</generate_code_modified_registers_only>
+      <update_include_paths>true</update_include_paths>
+      <generate_registers_defines>false</generate_registers_defines>
    </preferences>
    <tools>
-      <pins name="Pins" version="9.0" enabled="true" update_project_code="true">
+      <pins name="Pins" version="14.0" enabled="true" update_project_code="true">
          <generated_project_files>
             <file path="../../RTE/Board_Support/K32L3A60VPJ1A_cm4/pin_mux.c" update_enabled="true"/>
             <file path="../../RTE/Board_Support/K32L3A60VPJ1A_cm4/pin_mux.h" update_enabled="true"/>
          </generated_project_files>
          <pins_profile>
-            <processor_version>9.0.1</processor_version>
+            <processor_version>14.0.0</processor_version>
             <pin_labels>
                <pin_label pin_num="C1" pin_signal="LPADC0_SE0/PTB3/LPSPI0_PCS3/LPUART1_TX/I2S0_TX_FS/FB_AD10/TPM0_CH1" label="J2[4]/ARDUINO_D9/PWM" identifier="ARDUINO_PTB3"/>
                <pin_label pin_num="E1" pin_signal="PTB6/LLWU_P7/LPSPI0_PCS2/LPI2C1_SDA/I2S0_RX_BCLK/FB_AD7/TPM0_CH4" label="J2[6]/ARDUINO_D10/SPI0_PCS2" identifier="ARDUINO_SPI_SSN"/>
@@ -79,7 +81,7 @@
                   </dependency>
                </dependencies>
                <pins>
-                  <pin peripheral="GPIOA" signal="GPIO, 0" pin_num="B10" pin_signal="PTA0/NMI_b">
+                  <pin peripheral="GPIOA" signal="GPIO, 0" pin_num="B10" pin_signal="PTA0">
                      <pin_features>
                         <pin_feature name="direction" value="INPUT"/>
                         <pin_feature name="slew_rate" value="fast"/>
@@ -562,16 +564,16 @@
             </function>
          </functions_list>
       </pins>
-      <clocks name="Clocks" version="7.0" enabled="true" update_project_code="true">
+      <clocks name="Clocks" version="12.0" enabled="true" update_project_code="true">
          <generated_project_files>
             <file path="../../RTE/Board_Support/K32L3A60VPJ1A_cm4/clock_config.c" update_enabled="true"/>
             <file path="../../RTE/Board_Support/K32L3A60VPJ1A_cm4/clock_config.h" update_enabled="true"/>
          </generated_project_files>
          <clocks_profile>
-            <processor_version>9.0.1</processor_version>
+            <processor_version>14.0.0</processor_version>
          </clocks_profile>
          <clock_configurations>
-            <clock_configuration name="BOARD_BootClockRUN">
+            <clock_configuration name="BOARD_BootClockRUN" id_prefix="" prefix_user_defined="false">
                <description></description>
                <options/>
                <dependencies>
@@ -618,7 +620,7 @@
                </clock_settings>
                <called_from_default_init>true</called_from_default_init>
             </clock_configuration>
-            <clock_configuration name="BOARD_BootClockHSRUN">
+            <clock_configuration name="BOARD_BootClockHSRUN" id_prefix="" prefix_user_defined="false">
                <description></description>
                <options/>
                <dependencies/>
@@ -653,7 +655,7 @@
                </clock_settings>
                <called_from_default_init>false</called_from_default_init>
             </clock_configuration>
-            <clock_configuration name="BOARD_BootClockVLPR">
+            <clock_configuration name="BOARD_BootClockVLPR" id_prefix="" prefix_user_defined="false">
                <description></description>
                <options/>
                <dependencies>
@@ -703,26 +705,31 @@
          </dcdx_profile>
          <dcdx_configurations/>
       </dcdx>
-      <periphs name="Peripherals" version="9.0" enabled="true" update_project_code="true">
+      <periphs name="Peripherals" version="13.0" enabled="true" update_project_code="true">
          <dependencies>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpi2c" description="LPI2C Driver not found in the toolchain/IDE project. Project will not compile!" problem_level="2" source="Peripherals">
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpi2c" description="LPI2C Driver is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
                <feature name="enabled" evaluation="equal">
                   <data type="Boolean">true</data>
                </feature>
             </dependency>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpi2c" description="Unsupported version of the LPI2C Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. Project might not compile correctly." problem_level="1" source="Peripherals">
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpi2c" description="An unsupported version of the LPI2C Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
                <feature name="version" evaluation="equivalent">
                   <data type="Version">2.1.5</data>
                </feature>
             </dependency>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpuart" description="LPUART Driver not found in the toolchain/IDE project. Project will not compile!" problem_level="2" source="Peripherals">
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpuart" description="LPUART Driver is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
                <feature name="enabled" evaluation="equal">
                   <data type="Boolean">true</data>
                </feature>
             </dependency>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpuart" description="Unsupported version of the LPUART Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. Project might not compile correctly." problem_level="1" source="Peripherals">
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpuart" description="An unsupported version of the LPUART Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
                <feature name="version" evaluation="equivalent">
                   <data type="Version">2.2.4</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="Tool" resourceId="Clocks" description="The Clocks tool is required by the Peripherals tool, but it is disabled." problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data>true</data>
                </feature>
             </dependency>
          </dependencies>
@@ -731,7 +738,7 @@
             <file path="../../RTE/Board_Support/K32L3A60VPJ1A_cm4/peripherals.h" update_enabled="true"/>
          </generated_project_files>
          <peripherals_profile>
-            <processor_version>9.0.1</processor_version>
+            <processor_version>14.0.0</processor_version>
          </peripherals_profile>
          <functional_groups>
             <functional_group name="BOARD_InitPeripherals_cm4" uuid="42767dec-2704-4811-b21b-e31c81df8bb8" called_from_default_init="true" id_prefix="" core="cm4">
@@ -743,12 +750,12 @@
                         <data type="Frequency" unit="Hz">0</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPI2C3.lpi2c_scl" description="Signal serial clock of the peripheral LPI2C3 is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals_cm4">
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPI2C3.lpi2c_scl" description="Signal serial clock is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals_cm4">
                      <feature name="routed" evaluation="">
                         <data type="Boolean">true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPI2C3.lpi2c_sda" description="Signal serial data of the peripheral LPI2C3 is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals_cm4">
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPI2C3.lpi2c_sda" description="Signal serial data is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals_cm4">
                      <feature name="routed" evaluation="">
                         <data type="Boolean">true</data>
                      </feature>
@@ -758,12 +765,12 @@
                         <data type="Frequency" unit="Hz">0</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPUART0.uart_tx" description="Signal TX of the peripheral LPUART0 is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals_cm4">
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPUART0.uart_tx" description="Signal TX is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals_cm4">
                      <feature name="routed" evaluation="equal">
                         <data type="Boolean">true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPUART0.uart_rx" description="Signal RX of the peripheral LPUART0 is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals_cm4">
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPUART0.uart_rx" description="Signal RX is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals_cm4">
                      <feature name="routed" evaluation="equal">
                         <data type="Boolean">true</data>
                      </feature>
@@ -847,13 +854,26 @@
                         </struct>
                      </config_set>
                   </instance>
+                  <instance name="CM4_NVIC" uuid="12551bbb-9da0-4b25-87e1-3b1d7cb9d6db" type="nvic" type_id="nvic_57b5eef3774cc60acaede6f5b8bddc67" mode="general" peripheral="CM4_NVIC" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="nvic">
+                        <array name="interrupt_table"/>
+                        <array name="interrupts"/>
+                     </config_set>
+                  </instance>
                </instances>
             </functional_group>
             <functional_group name="BOARD_InitPeripherals_cm0plus" uuid="2ad1928e-ffcd-48c1-b16d-1ec4f2bdddd8" called_from_default_init="false" id_prefix="" core="cm0plus">
                <description></description>
                <options/>
                <dependencies/>
-               <instances/>
+               <instances>
+                  <instance name="CM0P_NVIC" uuid="dfaac12f-e5d0-4488-a627-5a5609f8ec0c" type="nvic" type_id="nvic_57b5eef3774cc60acaede6f5b8bddc67" mode="general" peripheral="CM0P_NVIC" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="nvic">
+                        <array name="interrupt_table"/>
+                        <array name="interrupts"/>
+                     </config_set>
+                  </instance>
+               </instances>
             </functional_group>
          </functional_groups>
          <components>
@@ -872,6 +892,15 @@
             <component name="generic_can" uuid="d0d1b851-b621-4d84-a754-aa7067a08faa" type_id="generic_can_1bfdd78b1af214566c1f23cf6a582d80">
                <config_set_global name="global_can"/>
             </component>
+            <component name="uart_cmsis_common" uuid="1d575805-2a18-4958-a6d6-6bb1a79c52fb" type_id="uart_cmsis_common_9cb8e302497aa696fdbb5a4fd622c2a8">
+               <config_set_global name="global_USART_CMSIS_common" quick_selection="default"/>
+            </component>
+            <component name="gpio_adapter_common" uuid="a1f8df99-311d-4015-9778-5327fa2d83d7" type_id="gpio_adapter_common_57579b9ac814fe26bf95df0a384c36b6">
+               <config_set_global name="global_gpio_adapter_common" quick_selection="default"/>
+            </component>
+            <component name="generic_enet" uuid="cacc698b-7fa4-4cd4-bb30-ef106d921dd7" type_id="generic_enet_74db5c914f0ddbe47d86af40cb77a619">
+               <config_set_global name="global_enet"/>
+            </component>
          </components>
       </periphs>
       <tee name="TEE" version="3.0" enabled="false" update_project_code="true">
@@ -879,8 +908,6 @@
          <tee_profile>
             <processor_version>N/A</processor_version>
          </tee_profile>
-         <global_options/>
-         <user_memory_regions/>
       </tee>
    </tools>
 </configuration>

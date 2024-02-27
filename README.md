@@ -7,9 +7,9 @@ The **Blinky** project can be easily used to verify the basic tool setup. It is 
 - Arm Cortstone-300 (Cortex-M55)
 - NXP K32L3A60VPJ1A (dual-core Cortex-M0+/Cortex-M4)
 
-It is compliant to the [Cortex Microcontroller Software Interface Standard (CMSIS)](https://arm-software.github.io/CMSIS_5/General/html/index.html)
-and uses the [CMSIS-RTOS v2 API](https://arm-software.github.io/CMSIS_5/RTOS2/html/index.html) for RTOS functionality. The CMSIS-RTOS v2 API
-is supported by various real-time operating systems, for example [Keil RTX5](https://arm-software.github.io/CMSIS_5/RTOS2/html/rtx5_impl.html) or [FreeRTOS](https://github.com/ARM-software/CMSIS-FreeRTOS).
+It is compliant to the [Cortex Microcontroller Software Interface Standard (CMSIS)](https://arm-software.github.io/CMSIS_6/latest/General/index.html)
+and uses the [CMSIS-RTOS v2 API](https://arm-software.github.io/CMSIS_6/latest/RTOS2/index.html) for RTOS functionality. The CMSIS-RTOS v2 API
+is supported by various real-time operating systems, for example [Keil RTX5](https://arm-software.github.io/CMSIS-RTX/latest/index.htmll) or [FreeRTOS](https://github.com/ARM-software/CMSIS-FreeRTOS).
 
 ## Operation
 
@@ -44,23 +44,23 @@ In both cases, use the "cm4" target in the selection pop-up:
 - `printf` messages are shown on the serial console.
 
 The board hardware mapping of `vioLED0`, `vioLED1`, and `vioBUTTON0` depends on the 
-configuration of the [CMSIS-Driver VIO](https://arm-software.github.io/CMSIS_5/Driver/html/group__vio__interface__gr.html).
+configuration of the [CMSIS-Driver VIO](https://arm-software.github.io/CMSIS_6/latest/Driver/group__vio__interface__gr.html).
 
 The output of the serial console can be observed in a Terminal window on VS Code.
 
 ## RTOS: Keil RTX5 Real-Time Operating System
 
-The real-time operating system [Keil RTX5](https://arm-software.github.io/CMSIS_5/RTOS2/html/rtx5_impl.html) implements the resource management. 
+The real-time operating system [Keil RTX5](https://arm-software.github.io/CMSIS-RTX/latest/index.html) implements the resource management. 
 
 It is configured with the following settings:
 
-- [Global Dynamic Memory size](https://arm-software.github.io/CMSIS_5/RTOS2/html/config_rtx5.html#systemConfig): 24000 bytes
-- [Default Thread Stack size](https://arm-software.github.io/CMSIS_5/RTOS2/html/config_rtx5.html#threadConfig): 3072 bytes
-- [Event Recorder Configuration](https://arm-software.github.io/CMSIS_5/RTOS2/html/config_rtx5.html#evtrecConfig)
-  - [Global Initialization](https://arm-software.github.io/CMSIS_5/RTOS2/html/config_rtx5.html#evtrecConfigGlobIni): 1
+- [Global Dynamic Memory size](https://arm-software.github.io/CMSIS-RTX/latest/config_rtx5.html#systemConfig): 24000 bytes
+- [Default Thread Stack size](https://arm-software.github.io/CMSIS-RTX/latest/config_rtx5.html#threadConfig): 3072 bytes
+- [Event Recorder Configuration](https://arm-software.github.io/CMSIS-RTX/latest/config_rtx5.html#evtrecConfig)
+  - [Global Initialization](https://arm-software.github.io/CMSIS-RTX/latest/config_rtx5.html#evtrecConfigGlobIni): 1
     - Start Recording: 1
 
-Refer to [Configure RTX v5](https://arm-software.github.io/CMSIS_5/RTOS2/html/config_rtx5.html) for a detailed description of all configuration options.
+Refer to [Configure RTX v5](https://arm-software.github.io/CMSIS-RTX/latest/config_rtx5.html#evtrecConfigGlobInil) for a detailed description of all configuration options.
 
 ## Board: ARM V2M-MPS3-SSE-300-FVP (AVH)
 
@@ -95,7 +95,7 @@ The heap/stack setup and the CMSIS-Driver assignment is in configuration files o
 
 ## Board: NXP FRDM-K32L3A6
 
-The tables below list the device configuration for this board. The board layer for the NXP FRDM-K32L3A6 is using the software component `::Board Support: SDK Project Template: project_template (Variant: frdmk32l3a6)` from `NXP.FRDM-K32L3A6_BSP.13.0.0` pack.
+The tables below list the device configuration for this board. The board layer for the NXP FRDM-K32L3A6 is using the software component `::Board Support: SDK Project Template: project_template (Variant: frdmk32l3a6)` from `NXP.FRDM-K32L3A6_BSP.17.0.0` pack.
 
 The heap/stack setup and the CMSIS-Driver assignment is in configuration files of related software components.
 

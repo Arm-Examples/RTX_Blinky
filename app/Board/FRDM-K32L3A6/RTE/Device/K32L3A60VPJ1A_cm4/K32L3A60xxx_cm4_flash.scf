@@ -5,13 +5,13 @@
 **     Compiler:            Keil ARM C/C++ Compiler
 **     Reference manual:    K32L3ARM, Rev. 0 , 05/2019
 **     Version:             rev. 1.0, 2019-04-22
-**     Build:               b200914
+**     Build:               b210812
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2020 NXP
+**     Copyright 2016-2021 NXP
 **     All rights reserved.
 **
 **     SPDX-License-Identifier: BSD-3-Clause
@@ -22,7 +22,6 @@
 ** ###################################################################
    Modified by Arm (added noinit section for Event Recorder)
 */
-
 
 #define m_interrupts_start             0x00000000
 #define m_interrupts_size              0x00000400
@@ -82,6 +81,10 @@ LR_m_text m_interrupts_start m_text_start+m_text_size-m_interrupts_start { ; loa
   RW_m_data m_data_start m_data_size-Stack_Size-Heap_Size-m_data_noinit_size { ; RW data
     .ANY (+RW +ZI)
     * (RamFunction)
+    * (NonCacheable.init)
+    * (*NonCacheable)
+    * (CodeQuickAccess)
+    * (DataQuickAccess)
   }
   RW_NOINIT +0 UNINIT {                ; RW uninitialized data
     * (.bss.noinit)

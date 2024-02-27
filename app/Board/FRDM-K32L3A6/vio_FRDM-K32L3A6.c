@@ -1,11 +1,12 @@
 /******************************************************************************
  * @file     vio_FRDM-K32L3A6.c
  * @brief    Virtual I/O implementation for board FRDM-K32L3A6
- * @version  V1.0.0
- * @date     18. March 2021
+ * @version  V2.0.0
+ * @date     23. October 2023
  ******************************************************************************/
 /*
- * Copyright (c) 2021 Arm Limited (or its affiliates). All rights reserved.
+ * Copyright (c) 2021-2023 Arm Limited (or its affiliates).
+ * All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -37,39 +38,31 @@ vioLED1           | vioSignalOut.1 | PTA23: LED GREEN                           
 vioLED2           | vioSignalOut.2 | PTA22: LED BLUE                                |
 */
 
-#include <stdio.h>
+/* History:
+ *  Version 2.0.0
+ *    Updated to API 1.0.0
+ *  Version 1.0.0
+ *    Initial release
+ */
+
 #include <string.h>
-#include <stdarg.h>
 #include "cmsis_vio.h"
 
-#include "RTE_Components.h"
+#include "RTE_Components.h"                 // Component selection
 #include CMSIS_device_header
 
 #if !defined CMSIS_VOUT || !defined CMSIS_VIN
-#include "fsl_common.h"
-#include "fsl_gpio.h"
-#include "fsl_fxos.h"
-#include "peripherals.h"
 #include "pin_mux.h"
 #include "board.h"
 #endif
 
 // VIO input, output definitions
-#define VIO_PRINT_MAX_SIZE      64U     // maximum size of print memory
-#define VIO_PRINTMEM_NUM         4U     // number of print memories
-#define VIO_VALUE_NUM            3U     // number of values
-#define VIO_VALUEXYZ_NUM         3U     // number of XYZ values
-#define VIO_IPV4_ADDRESS_NUM     2U     // number of IPv4 addresses
-#define VIO_IPV6_ADDRESS_NUM     2U     // number of IPv6 addresses
+#define VIO_VALUE_NUM           3U          // Number of values
 
 // VIO input, output variables
-__USED uint32_t      vioSignalIn;                                       // Memory for incoming signal
-__USED uint32_t      vioSignalOut;                                      // Memory for outgoing signal
-__USED char          vioPrintMem[VIO_PRINTMEM_NUM][VIO_PRINT_MAX_SIZE]; // Memory for the last value for each level
-__USED int32_t       vioValue   [VIO_VALUE_NUM];                        // Memory for value used in vioGetValue/vioSetValue
-__USED vioValueXYZ_t vioValueXYZ[VIO_VALUEXYZ_NUM];                     // Memory for XYZ value for 3-D vector
-__USED vioAddrIPv4_t vioAddrIPv4[VIO_IPV4_ADDRESS_NUM];                 // Memory for IPv4 address value used in vioSetIPv4/vioGetIPv4
-__USED vioAddrIPv6_t vioAddrIPv6[VIO_IPV6_ADDRESS_NUM];                 // Memory for IPv6 address value used in vioSetIPv6/vioGetIPv6
+__USED uint32_t vioSignalIn;                // Memory for incoming signal
+__USED uint32_t vioSignalOut;               // Memory for outgoing signal
+__USED int32_t  vioValue[VIO_VALUE_NUM];    // Memory for value used in vioGetValue/vioSetValue
 
 #if !defined CMSIS_VOUT
 // Add global user types, variables, functions here:
@@ -77,8 +70,8 @@ __USED vioAddrIPv6_t vioAddrIPv6[VIO_IPV6_ADDRESS_NUM];                 // Memor
 #endif
 
 #if !defined CMSIS_VIN
-  fxos_handle_t fxosHandle = {0};
-  
+// Add global user types, variables, functions here:
+
 #endif
 
 // Initialize test input, output.
@@ -88,17 +81,14 @@ void vioInit (void) {
 
 #endif
 #if !defined CMSIS_VIN
-  fxos_config_t config  = {0};
+// Add user variables here:
+
 #endif
 
   vioSignalIn  = 0U;
   vioSignalOut = 0U;
 
-  memset(vioPrintMem, 0, sizeof(vioPrintMem));
-  memset(vioValue,    0, sizeof(vioValue));
-  memset(vioValueXYZ, 0, sizeof(vioValueXYZ));
-  memset(vioAddrIPv4, 0, sizeof(vioAddrIPv4));
-  memset(vioAddrIPv6, 0, sizeof(vioAddrIPv6));
+  memset(vioValue, 0, sizeof(vioValue));
 
 #if !defined CMSIS_VOUT
   // Initialize LEDs pins
@@ -108,47 +98,7 @@ void vioInit (void) {
 #if !defined CMSIS_VIN
   // Initialize buttons pins
   BOARD_InitButtons();
-
-  // Initialize accelerometer/magnetometer pins and I2C
-  BOARD_InitACCEL();
-  BOARD_Accel_I2C_Init();
-  // Configure the I2C function
-  config.I2C_SendFunc    = BOARD_Accel_I2C_Send;
-  config.I2C_ReceiveFunc = BOARD_Accel_I2C_Receive;
-  config.slaveAddress = 0x1E;
-  FXOS_Init(&fxosHandle, &config);
 #endif
-}
-
-// Print formated string to test terminal.
-int32_t vioPrint (uint32_t level, const char *format, ...) {
-  va_list args;
-  int32_t ret;
-#if !defined CMSIS_VOUT
-// Add user variables here:
-
-#endif
-
-  if (level > vioLevelError) {
-    return (-1);
-  }
-
-  if (level > VIO_PRINTMEM_NUM) {
-    return (-1);
-  }
-
-  va_start(args, format);
-
-  ret = vsnprintf((char *)vioPrintMem[level], sizeof(vioPrintMem[level]), format, args);
-
-  va_end(args);
-
-#if !defined CMSIS_VOUT
-// Add user code here:
-
-#endif
-
-  return (ret);
 }
 
 // Set signal output.
@@ -231,9 +181,9 @@ uint32_t vioGetSignal (uint32_t mask) {
   }
 #endif
 
-  signal = vioSignalIn;
+  signal = vioSignalIn & mask;
 
-  return (signal & mask);
+  return signal;
 }
 
 // Set value output.
@@ -278,148 +228,4 @@ int32_t vioGetValue (uint32_t id) {
   value = vioValue[index];
 
   return value;
-}
-
-// Set XYZ value output.
-void vioSetXYZ (uint32_t id, vioValueXYZ_t valueXYZ) {
-  uint32_t index = id;
-#if !defined CMSIS_VOUT
-// Add user variables here:
-
-#endif
-
-  if (index >= VIO_VALUEXYZ_NUM) {
-    return;                             /* return in case of out-of-range index */
-  }
-
-  vioValueXYZ[index] = valueXYZ;
-
-#if !defined CMSIS_VOUT
-// Add user code here:
-
-#endif
-}
-
-// Get XYZ value input.
-vioValueXYZ_t vioGetXYZ (uint32_t id) {
-  uint32_t index = id;
-  vioValueXYZ_t valueXYZ = {0, 0, 0};
-#if !defined CMSIS_VIN
-  // Accelerometer/Magnetometer variables
-  fxos_data_t sensorData   = {0};
-
-#endif
-
-  if (index >= VIO_VALUEXYZ_NUM) {
-    return valueXYZ;                    /* return default in case of out-of-range index */
-  }
-
-#if !defined CMSIS_VIN
-  // Get input values from MEMS
-  FXOS_ReadSensorData(&fxosHandle, &sensorData);
-  if (id == vioMotionAccelero) {
-    vioValueXYZ[index].X = (int16_t)((uint16_t)((uint16_t)sensorData.accelXMSB << 8) | (uint16_t)sensorData.accelXLSB) / 4U;
-    vioValueXYZ[index].Y = (int16_t)((uint16_t)((uint16_t)sensorData.accelYMSB << 8) | (uint16_t)sensorData.accelYLSB) / 4U;
-    vioValueXYZ[index].Z = (int16_t)((uint16_t)((uint16_t)sensorData.accelZMSB << 8) | (uint16_t)sensorData.accelZLSB) / 4U;
-  }
-
-  if (id == vioMotionMagneto) {
-    vioValueXYZ[index].X = (int16_t)((uint16_t)((uint16_t)sensorData.magXMSB << 8) | (uint16_t)sensorData.magXLSB) / 4U;
-    vioValueXYZ[index].Y = (int16_t)((uint16_t)((uint16_t)sensorData.magYMSB << 8) | (uint16_t)sensorData.magYLSB) / 4U;
-    vioValueXYZ[index].Z = (int16_t)((uint16_t)((uint16_t)sensorData.magZMSB << 8) | (uint16_t)sensorData.magZLSB) / 4U;
-  }
-#endif
-
-  valueXYZ = vioValueXYZ[index];
-
-  return valueXYZ;
-}
-
-// Set IPv4 address output.
-void vioSetIPv4 (uint32_t id, vioAddrIPv4_t addrIPv4) {
-  uint32_t index = id;
-#if !defined CMSIS_VOUT
-// Add user variables here:
-
-#endif
-
-  if (index >= VIO_IPV4_ADDRESS_NUM) {
-    return;                             /* return in case of out-of-range index */
-  }
-
-  vioAddrIPv4[index] = addrIPv4;
-
-#if !defined CMSIS_VOUT
-// Add user code here:
-
-#endif
-}
-
-// Get IPv4 address input.
-vioAddrIPv4_t vioGetIPv4 (uint32_t id) {
-  uint32_t index = id;
-  vioAddrIPv4_t addrIPv4 = {0U, 0U, 0U, 0U};
-#if !defined CMSIS_VIN
-// Add user variables here:
-
-#endif
-
-  if (index >= VIO_IPV4_ADDRESS_NUM) {
-    return addrIPv4;                    /* return default in case of out-of-range index */
-  }
-
-#if !defined CMSIS_VIN
-// Add user code here:
-
-//   vioAddrIPv4[index] = ...;
-#endif
-
-  addrIPv4 = vioAddrIPv4[index];
-
-  return addrIPv4;
-}
-
-// Set IPv6 address output.
-void vioSetIPv6 (uint32_t id, vioAddrIPv6_t addrIPv6) {
-  uint32_t index = id;
-#if !defined CMSIS_VOUT
-// Add user variables here:
-
-#endif
-
-  if (index >= VIO_IPV6_ADDRESS_NUM) {
-    return;                             /* return in case of out-of-range index */
-  }
-
-  vioAddrIPv6[index] = addrIPv6;
-
-#if !defined CMSIS_VOUT
-// Add user code here:
-
-#endif
-}
-
-// Get IPv6 address input.
-vioAddrIPv6_t vioGetIPv6 (uint32_t id) {
-  uint32_t index = id;
-  vioAddrIPv6_t addrIPv6 = {0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
-                            0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U};
-#if !defined CMSIS_VIN
-// Add user variables here:
-
-#endif
-
-  if (index >= VIO_IPV6_ADDRESS_NUM) {
-    return addrIPv6;                    /* return default in case of out-of-range index */
-  }
-
-#if !defined CMSIS_VIN
-// Add user code here:
-
-//   vioAddrIPv6[index] = ...;
-#endif
-
-  addrIPv6 = vioAddrIPv6[index];
-
-  return addrIPv6;
 }
