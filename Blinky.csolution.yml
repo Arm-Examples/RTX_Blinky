@@ -27,7 +27,7 @@ solution:
     - pack: ARM::CMSIS-Compiler@2.0.0
 
     # packs for AVH_MPS3_Corstone-300
-    - pack: ARM::V2M_MPS3_SSE_300_BSP@1.2.0
+    - pack: ARM::V2M_MPS3_SSE_300_BSP@1.5.0
       for-context:
         - +AVH
     # packs for FRDM-K32L3A6
