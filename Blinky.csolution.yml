@@ -31,10 +31,10 @@ solution:
       for-context:
         - +AVH
     # packs for FRDM-K32L3A6
-    - pack: NXP::K32L3A60_DFP@13.0.0
+    - pack: NXP::K32L3A60_DFP@17.0.0
       for-context:
         - +FRDM-K32L3A6
-    - pack: NXP::FRDM-K32L3A6_BSP@13.0.0
+    - pack: NXP::FRDM-K32L3A6_BSP@17.0.0
       for-context:
         - +FRDM-K32L3A6
 

@@ -48,7 +48,7 @@ void     LPSPI0_DeinitPins   (void) { /* Not implemented */ }
 
 int main (void) {
 
-  CLOCK_EnableClock(kCLOCK_Rgpio1);
+  CLOCK_EnableClock(kCLOCK_GpioE);
   BOARD_InitBootPeripherals();
   BOARD_InitBootPins();
   BOARD_InitBootClocks();

@@ -1,5 +1,3 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/Open-CMSIS-Pack/devtools/schemas/projmgr/2.0.0-dev2/tools/projmgr/schemas/cproject.schema.json
-
 project:
 
 #  add-path:
@@ -33,15 +31,28 @@ project:
     - group: MCUXpresso
       files:
         - file: ./FRDM-K32L3A6.mex
+    - group: Board Support
+      files:
+        - file: ./RTE/Board_Support/K32L3A60VPJ1A_cm4/board.c
+        - file: ./RTE/Board_Support/K32L3A60VPJ1A_cm4/board.h
+        - file: ./RTE/Board_Support/K32L3A60VPJ1A_cm4/clock_config.c
+        - file: ./RTE/Board_Support/K32L3A60VPJ1A_cm4/clock_config.h
+        - file: ./RTE/Board_Support/K32L3A60VPJ1A_cm4/peripherals.c
+        - file: ./RTE/Board_Support/K32L3A60VPJ1A_cm4/peripherals.h
+        - file: ./RTE/Board_Support/K32L3A60VPJ1A_cm4/pin_mux.c
+        - file: ./RTE/Board_Support/K32L3A60VPJ1A_cm4/pin_mux.h
 
   components:
     - component: Device:Startup
-
+    - component: ARM::CMSIS Driver:USART:Custom
     - component: NXP::Device:CMSIS:K32L3A60_header
     - component: NXP::Device:CMSIS:K32L3A60_system
 
     - component: NXP::Device:SDK Drivers:clock
     - component: NXP::Device:SDK Drivers:common
+      misc:
+        - C:
+            - -include cmsis_core5.h
     - component: NXP::Device:SDK Drivers:dmamux
     - component: NXP::Device:SDK Drivers:edma
     - component: NXP::Device:SDK Drivers:fxos8700cq
@@ -53,6 +64,7 @@ project:
     - component: NXP::Device:SDK Drivers:lpuart_adapter
     - component: NXP::Device:SDK Drivers:msmc
     - component: NXP::Device:SDK Drivers:port
+    - component: NXP::Device:SDK Drivers:lpuart_edma
 
     - component: NXP::Device:SDK Project Template:RTE_Device
 
@@ -62,17 +74,16 @@ project:
     - component: NXP::Device:SDK Utilities:serial_manager
     - component: NXP::Device:SDK Utilities:serial_manager_uart
 
-    - component: NXP::Board Support:SDK Project Template:project_template&frdmk32l3a6
-
     - component: ARM::CMSIS:RTOS2:Keil RTX5&Source
+    - component: ARM::CMSIS:OS Tick
     - component: ARM::CMSIS:CORE
+    - component: ARM::CMSIS-View:Event Recorder
 
     - component: ARM::CMSIS Driver:SPI:Custom
     - component: NXP::CMSIS Driver:USART:lpuart_cmsis
     - component: ARM::CMSIS Driver:VIO:Custom
 
-    - component: Keil::Compiler&ARM Compiler:Event Recorder&DAP
-    - component: Keil::Compiler&ARM Compiler:I/O:STDERR&User
-    - component: Keil::Compiler&ARM Compiler:I/O:STDOUT&User
-    - component: Keil::Compiler&ARM Compiler:I/O:STDIN&User
-
+    - component: ARM::CMSIS-Compiler:CORE
+    - component: ARM::CMSIS-Compiler:STDERR:Custom
+    - component: ARM::CMSIS-Compiler:STDOUT:Custom
+    - component: ARM::CMSIS-Compiler:STDIN:Custom

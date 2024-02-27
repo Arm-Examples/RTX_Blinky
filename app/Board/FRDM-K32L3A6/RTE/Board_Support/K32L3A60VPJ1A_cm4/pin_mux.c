@@ -7,11 +7,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v9.0
+product: Pins v14.0
 processor: K32L3A60xxx
 package_id: K32L3A60VPJ1A
 mcu_data: ksdk2_0
-processor_version: 9.0.1
+processor_version: 14.0.0
 board: FRDM-K32L3A6
 pin_labels:
 - {pin_num: C1, pin_signal: LPADC0_SE0/PTB3/LPSPI0_PCS3/LPUART1_TX/I2S0_TX_FS/FB_AD10/TPM0_CH1, label: 'J2[4]/ARDUINO_D9/PWM', identifier: ARDUINO_PTB3}
@@ -78,7 +78,7 @@ void BOARD_InitPins_cm4(void)
 BOARD_InitButtons:
 - options: {callFromInitBoot: 'true', coreID: cm4, enableClock: 'true'}
 - pin_list:
-  - {pin_num: B10, peripheral: GPIOA, signal: 'GPIO, 0', pin_signal: PTA0/NMI_b, direction: INPUT, slew_rate: fast, open_drain: disable, pull_select: up, pull_enable: enable,
+  - {pin_num: B10, peripheral: GPIOA, signal: 'GPIO, 0', pin_signal: PTA0, direction: INPUT, slew_rate: fast, open_drain: disable, pull_select: up, pull_enable: enable,
     passive_filter: disable}
   - {pin_num: P16, peripheral: GPIOE, signal: 'GPIO, 8', pin_signal: LPADC0_SE22/PTE8/LLWU_P23/SDHC0_D5/LPUART3_RX/LPSPI3_SIN/TPM1_CH0/LPTMR2_ALT1, direction: INPUT,
     slew_rate: fast, open_drain: disable, pull_select: up, pull_enable: enable}
@@ -99,6 +99,8 @@ BOARD_InitButtons:
 /* Function assigned for the Cortex-M4F */
 void BOARD_InitButtons(void)
 {
+    /* Clock Gate Control: Clock enabled. The current clock selection and divider options are locked. */
+    CLOCK_EnableClock(kCLOCK_GpioE);
     /* Clock Gate Control: Clock enabled. The current clock selection and divider options are locked. */
     CLOCK_EnableClock(kCLOCK_PortA);
     /* Clock Gate Control: Clock enabled. The current clock selection and divider options are locked. */
@@ -424,6 +426,8 @@ BOARD_InitACCEL:
 /* Function assigned for the Cortex-M4F */
 void BOARD_InitACCEL(void)
 {
+    /* Clock Gate Control: Clock enabled. The current clock selection and divider options are locked. */
+    CLOCK_EnableClock(kCLOCK_GpioE);
     /* Clock Gate Control: Clock enabled. The current clock selection and divider options are locked. */
     CLOCK_EnableClock(kCLOCK_PortE);
 

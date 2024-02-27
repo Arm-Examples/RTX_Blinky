@@ -5,13 +5,13 @@
 **     Compiler:            Keil ARM C/C++ Compiler
 **     Reference manual:    K32L3ARM, Rev. 0 , 05/2019
 **     Version:             rev. 1.0, 2019-04-22
-**     Build:               b200914
+**     Build:               b210812
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2020 NXP
+**     Copyright 2016-2021 NXP
 **     All rights reserved.
 **
 **     SPDX-License-Identifier: BSD-3-Clause
@@ -22,14 +22,11 @@
 ** ###################################################################
 */
 
-#define m_interrupts_start             0x00000000
+#define m_interrupts_start             0x08000000
 #define m_interrupts_size              0x00000400
 
-#define m_text_start                   0x00000400
-#define m_text_size                    0x000FFC00
-
-#define m_core1_image_start            0x01000000
-#define m_core1_image_size             0x00040000
+#define m_text_start                   0x08000400
+#define m_text_size                    0x0000FC00
 
 #if (defined(__use_shmem__))
   #define m_data_start                 0x20000000
@@ -60,10 +57,7 @@
   #define Heap_Size                    0x0400
 #endif
 
-LR_m_text m_interrupts_start m_text_start+m_text_size-m_interrupts_start { ; load region size_region
-  VECTOR_ROM m_interrupts_start m_interrupts_size { ; load address = execution address
-    * (.isr_vector,+FIRST)
-  }
+LR_m_text m_text_start m_text_size {   ; load region size_region
   ER_m_text m_text_start m_text_size { ; load address = execution address
     * (InRoot$$Sections)
     .ANY (+RO)
@@ -78,10 +72,20 @@ LR_m_text m_interrupts_start m_text_start+m_text_size-m_interrupts_start { ; loa
   RW_m_data m_data_start m_data_size-Stack_Size-Heap_Size { ; RW data
     .ANY (+RW +ZI)
     * (RamFunction)
+    * (NonCacheable.init)
+    * (*NonCacheable)
+    * (CodeQuickAccess)
+    * (DataQuickAccess)
   }
   ARM_LIB_HEAP +0 EMPTY Heap_Size {    ; Heap region growing up
   }
   ARM_LIB_STACK m_data_start+m_data_size EMPTY -Stack_Size { ; Stack region growing down
+  }
+}
+
+LR_m_interrupts m_interrupts_start m_interrupts_size {
+  VECTOR_ROM m_interrupts_start m_interrupts_size { ; load address = execution address
+    * (.isr_vector,+FIRST)
   }
 }
 
@@ -97,8 +101,3 @@ LR_m_usb_ram (m_usb_sram_start + usb_bdt_size) (m_usb_sram_size - usb_bdt_size) 
   }
 }
 
-LR_CORE1_IMAGE m_core1_image_start {
-  CORE1_REGION m_core1_image_start m_core1_image_size {
-    *(*core1_code)
-  }
-}
