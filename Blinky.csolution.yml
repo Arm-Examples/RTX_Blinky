@@ -1,7 +1,5 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/Open-CMSIS-Pack/devtools/schemas/projmgr/2.0.0-dev1/tools/projmgr/schemas/csolution.schema.json
-
 solution:
-  created-for: cmsis-toolbox@2.0.0
+  created-for: cmsis-toolbox@2.2.1
   description: Simple blinky example
   compiler: AC6
 
@@ -23,18 +21,20 @@ solution:
         - --diag_suppress 6848
 
   packs:
-    - pack: ARM::CMSIS@5.9.0
-    - pack: Keil::ARM_Compiler
+    - pack: ARM::CMSIS@>=6.0.0
+    - pack: ARM::CMSIS-RTX@5.8.0
+    - pack: ARM::CMSIS-View@1.1.0
+    - pack: ARM::CMSIS-Compiler@2.0.0
 
     # packs for AVH_MPS3_Corstone-300
-    - pack: ARM::V2M_MPS3_SSE_300_BSP@1.2.0
+    - pack: ARM::V2M_MPS3_SSE_300_BSP@1.5.0
       for-context:
         - +AVH
     # packs for FRDM-K32L3A6
-    - pack: NXP::K32L3A60_DFP@13.0.0
+    - pack: NXP::K32L3A60_DFP@17.0.0
       for-context:
         - +FRDM-K32L3A6
-    - pack: NXP::FRDM-K32L3A6_BSP@13.0.0
+    - pack: NXP::FRDM-K32L3A6_BSP@17.0.0
       for-context:
         - +FRDM-K32L3A6
 
