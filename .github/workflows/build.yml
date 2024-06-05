@@ -40,7 +40,7 @@ jobs:
           # Run build
           cbuild Blinky.csolution.yml --packs --update-rte --context .Debug+AVH
 
-      - name: Deactivate tool license
-        if: always()
-        run: |
-            armlm deactivate -product KEMDK-COM0
+      # - name: Deactivate tool license
+      #   if: always()
+      #   run: |
+      #       armlm deactivate -product KEMDK-COM0
