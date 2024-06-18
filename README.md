@@ -1,4 +1,5 @@
 # Blinky Project for Multiple Targets
+[![CMSIS Compliance](https://img.shields.io/github/actions/workflow/status/Arm-Examples/RTX_Blinky/verify.yml?logo=arm&logoColor=0091bd&label=CMSIS%20Compliance)](https://www.keil.arm.com/cmsis) 
 
 <p align="center"><img src="./Blinky.png"/></p>
 
