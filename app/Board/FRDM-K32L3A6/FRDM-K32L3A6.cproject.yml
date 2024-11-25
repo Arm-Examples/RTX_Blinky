@@ -75,7 +75,7 @@ project:
     - component: NXP::Device:SDK Utilities:serial_manager_uart
 
     - component: ARM::CMSIS:RTOS2:Keil RTX5&Source
-    - component: ARM::CMSIS:OS Tick
+    - component: ARM::CMSIS:OS Tick:SysTick
     - component: ARM::CMSIS:CORE
     - component: ARM::CMSIS-View:Event Recorder
 
