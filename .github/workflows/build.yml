@@ -31,8 +31,8 @@ jobs:
       - run: |
           # Bootstrap and activate vcpkg
           . <(curl https://aka.ms/vcpkg-init.sh -L)
-          vcpkg x-update-registry --all
-          vcpkg activate
+          vcpkg-shell x-update-registry --all
+          vcpkg-shell activate
           
           # Activate tool license
           armlm activate -product KEMDK-COM0 -server https://mdk-preview.keil.arm.com
